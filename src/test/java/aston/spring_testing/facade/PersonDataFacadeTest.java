@@ -6,6 +6,7 @@ import aston.spring_testing.module.PersonRole;
 import aston.spring_testing.module.Role;
 import aston.spring_testing.service.PersonService;
 import aston.spring_testing.service.RoleService;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,10 +17,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -28,13 +28,11 @@ class PersonDataFacadeTest {
     private PersonDataFacade personDataFacade;
 
     @Mock
-    private PersonDataFacade personDataFacade2;
-
-    @Mock
     private PersonService personService;
 
     @Mock
     private RoleService roleService;
+
 
     @Test
     void savePersonTest() {
@@ -44,7 +42,7 @@ class PersonDataFacadeTest {
         savedPerson.setId(1L);
 
         when(personService.save(person)).thenReturn(savedPerson);
-        //verify(personDataFacade2, times(2)).getSavedRole(anyString());
+        //verify(personDataFacade, times(2)).getSavedRole(anyString());
         PersonDto result = personDataFacade.save(personDto);
         assertEquals(result.getName(), personDto.getName());
 
