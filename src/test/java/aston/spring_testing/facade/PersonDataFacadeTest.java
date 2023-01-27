@@ -13,14 +13,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-
+@ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class PersonDataFacadeTest {
@@ -42,7 +43,7 @@ class PersonDataFacadeTest {
         savedPerson.setId(1L);
 
         when(personService.save(person)).thenReturn(savedPerson);
-        //verify(personDataFacade, times(2)).getSavedRole(anyString());
+        verify(personDataFacade, times(2)).getSavedRole(anyString());
         PersonDto result = personDataFacade.save(personDto);
         assertEquals(result.getName(), personDto.getName());
 
